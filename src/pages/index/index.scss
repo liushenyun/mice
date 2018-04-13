@@ -1,0 +1,59 @@
+@import './common/const.scss';
+@import '../common/rpx.scss';
+@import 'share';
+page{
+	position: relative;
+	height: 100%;
+}
+.index-container{
+	height: 100%;
+}
+.motto {
+	@extend %center-flex;
+	margin-top: 200px;
+	align-items: center;
+}
+
+.face {
+	$r: 24px;
+
+	width: $r;
+	height: $r;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.powered {
+	margin-top: 30px;
+	font-size: 11px;
+	color: gray;
+}
+
+ .box{
+	width: rpx(100);
+	height: rpx(100);
+	font-size: rpx(40)
+ }
+
+ .btn-wrap{
+	 text-align: center;
+	 margin-top: 20px;
+	 height: 50px;
+	 button{
+		 margin: 0 rpx(20);
+	 }
+ }
+.scroll{
+	 height:calc(100% - 220px);
+	//  background: #666
+ }
+
+ .scroll-item{
+	 height: rpx(200);
+	 background: #999;
+	 line-height: rpx(200);
+	 text-align: center;
+	 font-size: rpx(40);
+	 margin-bottom: rpx(20);
+	 color: #FFF;
+ }

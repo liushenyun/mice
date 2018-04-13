@@ -1,0 +1,8 @@
+@import './const.scss';
+page {
+	color: $color-page-word;
+	background: $color-page-background;
+	view, text, button, checkbox, radio, scroll-view, input, form, label, picker, silder, image {
+		box-sizing: border-box;
+	}
+}

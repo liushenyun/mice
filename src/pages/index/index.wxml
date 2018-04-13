@@ -1,0 +1,29 @@
+<!-- index.wxml -->
+<import src="../../wxml/motto/motto.wxml"/>
+<wxs src="../../wxs/powered.wxs" module="powered" />
+<wxs src='../../wxs/config.wxs' module='config' />
+<view class="index-container">
+  <!-- loading组件 -->
+  <!-- <loading>正在加载</loading> -->
+  <!-- banner -->
+  <view class="swiper-wrap">
+    <swiper circular="{{config.swperConfig.circular}}" indicator-color="{{config.swperConfig.indicatorColor}}" indicator-dots="{{config.swperConfig.indicatorDots}}" autoplay="{{config.swperConfig.autoplay}}" interval="{{config.swperConfig.interval}}" duration="{{config.swperConfig.duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image bindtap='toWebViewTab' data-url="{{item.url}}" src="{{item.img}}" class="slide-image" width="355" height="150" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 筛选button -->
+  <view class="btn-wrap">
+    <button bind:tap="btnTap" data-type="{{item.type}}" wx:for="{{btnList}}" wx:key="{{index}}" class="mini-btn {{item.type == btnActiveType ? 'mini-btn-active': ''}}"  size="mini">{{item.title}}</button>
+  </view>
+  <scroll-view class="scroll" scroll-y bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view wx:for="{{list}}" wx:key="{{index}}" data-url="{{item.url}}" class="scroll-item" bindtap='toWebViewTab'>{{item.title}}</view>
+  </scroll-view>
+  <button size="mini" bind:tap="showLoading">显示loading</button>
+  <button open-type="share">转发</button>
+  <button open-type="contact">进入客服 </button>
+  <image bindtap='previewImg' src="../../images/wx.png"></image>
+</view>
