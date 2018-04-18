@@ -1,29 +1,39 @@
-<!-- index.wxml -->
-<import src="../../wxml/motto/motto.wxml"/>
-<wxs src="../../wxs/powered.wxs" module="powered" />
-<wxs src='../../wxs/config.wxs' module='config' />
+<wxs src="../../wxs/config.wxs" module="config" />
 <view class="index-container">
-  <!-- loading组件 -->
-  <!-- <loading>正在加载</loading> -->
-  <!-- banner -->
-  <view class="swiper-wrap">
-    <swiper circular="{{config.swperConfig.circular}}" indicator-color="{{config.swperConfig.indicatorColor}}" indicator-dots="{{config.swperConfig.indicatorDots}}" autoplay="{{config.swperConfig.autoplay}}" interval="{{config.swperConfig.interval}}" duration="{{config.swperConfig.duration}}">
-      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
-        <swiper-item>
-          <image bindtap='toWebViewTab' data-url="{{item.url}}" src="{{item.img}}" class="slide-image" width="355" height="150" />
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-  <!-- 筛选button -->
-  <view class="btn-wrap">
-    <button bind:tap="btnTap" data-type="{{item.type}}" wx:for="{{btnList}}" wx:key="{{index}}" class="mini-btn {{item.type == btnActiveType ? 'mini-btn-active': ''}}"  size="mini">{{item.title}}</button>
-  </view>
-  <scroll-view class="scroll" scroll-y bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:for="{{list}}" wx:key="{{index}}" data-url="{{item.url}}" class="scroll-item" bindtap='toWebViewTab'>{{item.title}}</view>
+  <scroll-view class="index-scroll" scroll-y bindscrolltolower="scrolltolower">
+    <view class="show-search">
+      <view class="show-search-text" bind:tap="toSearchActive">
+        <image mode="aspectFit" src="../../images/ic_home_search.png">搜索</image>
+        <text>搜索</text>
+      </view>
+    </view>
+    <view class="swiper-wrap">
+      <swiper circular="{{config.swperConfig.circular}}" indicator-color="{{config.swperConfig.indicatorColor}}" indicator-dots="{{config.swperConfig.indicatorDots}}" autoplay="{{config.swperConfig.autoplay}}" interval="{{config.swperConfig.interval}}" duration="{{config.swperConfig.duration}}" previous-margin="20px" next-margin="20px" bindchange="swiperCurrentChange">
+        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+          <swiper-item>
+            <image bindtap="toWebViewTab" data-url="{{item.url}}" src="{{item.img}}" class="swiper-image {{index == swiperCurrent ? 'swiper-image-current' : ''}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="dots">
+        <block wx:for="{{imgUrls}}" wx:key="unique">
+          <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+        </block>
+      </view>
+    </view>
+    <view class="line"></view>
+    <!-- 筛选button -->
+    <view class="btn-wrap">
+      <scroll-view scroll-x="true" style="width: 100%;white-space:nowrap">
+        <view bind:tap="btnTap" data-type="{{item.type}}" wx:for="{{btnList}}" wx:key="{{index}}" class="btn-btn icar-clear-after-border {{item.type == btnActiveType ? 'checked-btn-active': ''}}" size="mini">
+          <image mode="aspectFit" src="../../images/{{item.type == btnActiveType ? item.activeImg: item.img}}.png"></image>
+          {{item.title}}
+        </view>
+      </scroll-view>
+    </view>
+    <view class="list-wrap">
+      <testList testList="{{list}}" bind:jumpEvent="listToH5Active"></testList>
+      <view class="bottom-tip"> ---  已经到底了 ---</view>
+    </view>
   </scroll-view>
-  <button size="mini" bind:tap="showLoading">显示loading</button>
-  <button open-type="share">转发</button>
-  <button open-type="contact">进入客服 </button>
-  <image bindtap='previewImg' src="../../images/wx.png"></image>
 </view>

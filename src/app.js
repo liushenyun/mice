@@ -1,4 +1,4 @@
-
+import './utils/wx-pro'
 App({
 	onLaunch(res) {
 		wx.login({
