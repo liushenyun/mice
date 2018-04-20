@@ -5,6 +5,7 @@ const ENTRY = 'miniprogram'; // 入口
 const API_VERSION ='v1'; // api版本
 const INDEX_SKY_ID ='mini-test-index-banner'; // 这个banner不能
 const INDEX_SKY_TYPE ='Banner';
+// pages/search/index?class='212'&id='13'
 export {
 	BASE_URL,
 	ENTRY,

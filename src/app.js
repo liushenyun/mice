@@ -1,6 +1,7 @@
 import './utils/wx-pro'
 App({
 	onLaunch(res) {
+		console.log('onlanchres', res)
 		wx.login({
 			success: function (res) {
 				if (res.code) {
@@ -84,4 +85,10 @@ App({
 	globalData: {
 		userInfo: null,
 	},
+	onHide() {
+		console.log('apponhide')
+	},
+	onLoad:function(options){
+		console.log('appoptions', options)
+	}
 });

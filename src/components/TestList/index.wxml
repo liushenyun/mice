@@ -1,17 +1,17 @@
 <view wx:for="{{testList}}" wx:key="{{index}}" class="scroll-item" bindtap="toWebViewTab">
     <view class="list-img">
-        <image mode="aspectFit" src="../../images/timg.png"></image>
+        <image mode="aspectFit" src="{{item.image}}"></image>
     </view>
     <view class="list-des">
         <view class="des-wrap">
             <view class="des-title">{{item.title}}</view>
             <view class="des-num">
-                参与人数：
-                <text>1000000000</text>
+                参与人数：ai科技是一个技是一个技是一个技是一个技是
+                <!-- <text>{{item.partakePerson}}</text> -->
             </view>
         </view>
     </view>
     <view class="list-btn">
-        <view class="text-btn"  data-url="{{item.url}}" bindtap='toTestActive'>测试</view>
+        <view class="text-btn"  data-top-color="{{item.topColor}}" data-title-color="{{item.titleColor}}"  data-url="{{item.embeddUrl}}" bindtap='toTestActive'>测试</view>
     </view>
 </view>

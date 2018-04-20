@@ -5,7 +5,6 @@ import api from './api'
  * 获取测试列表数据
  */
 let getTestList = (classId = 'all') => {
-    console.log('getlist', api.getTestList(classId))
     return wx.pro.request({
         url: api.getTestList(classId)
     })
@@ -17,7 +16,14 @@ let getBannerList = () =>{
     })
 }
 
+let getClassBtnList = () =>{
+    console.log('uri:'+api.getClassBtnList())
+    return wx.pro.request({
+        url: api.getClassBtnList()
+    })
+}
 export {
     getTestList,
-    getBannerList
+    getBannerList,
+    getClassBtnList
 }

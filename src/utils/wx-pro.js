@@ -24,7 +24,6 @@ function promisify() {
 		wx.pro[fnName] = (obj = {}) => {
 			return new Promise((resolve, reject) => {
 				obj.success = function (res) {
-					console.log(`wx.${fnName} success`, res)
 					resolve(res)
 				}
 				obj.fail = function (err) {
@@ -70,51 +69,36 @@ function promisify() {
 	wx.pro.request = options => {
 		return new Promise((resolve, reject) => {
 			const user = wx.getStorageSync('loginInfo')
+			wx.showLoading({
+				title: '加载中',
+			})
 			wx.request({
 				url: options.url,
 				method: options.method || 'GET',
 				data: options.data,
+				// application/x-www-form-urlencoded'  
 				header: {
 					'Hb-Token': (user && user.token) || '',
-					'content-type':'application/json;charset=UTF-8',
+					'content-type':'application/x-www-form-urlencoded',
 					...options.header
 				},
 				success: res => {
-					if (res.statusCode >= 400) {
-						if (options.url.indexOf('statistic') === -1 && options.url.indexOf('retrieve') === -1) {
-							wx.showToast({
-								title: '加载失败',
-								image: '/assets/images/ic_fail@3x.png',
-								duration: 3000,
-							})
-						}
-						console.error('wx.request fail [business]', options, res.statusCode, res.data)
+					setTimeout(() => {
+						wx.hideLoading();
+					}, 800);
+					let { statusCode, data } = res;
+					let errorCode = Number(data.errorCode);
+					if (statusCode===200 && errorCode && errorCode === 0) {
 						reject(res)
-					}
-					else {
-						console.log('wx.request success', options, res.data)
-						const code = res.data.code
-						const detail = res.data.detail
-						if (code !== 0) {
-							if (code === INVALID_TOKEN) {
-								wx.showLoading({
-									mask: true,
-									title: '正在重新登录...',
-								})
-								const app = getApp()
-								app.login()
-							}
-							resolve(res.data)
-						} else {
-							resolve(res.data) // unwrap data
-						}
+					} else{
+						resolve(res.data)
 					}
 				},
 				fail: err => {
 					console.error('wx.request fail [network]', options, err)
 					wx.showToast({
 						title: '加载失败',
-						image: '/assets/images/ic_fail@3x.png',
+						image: '/images/ic_home_delete.png',
 						duration: 3000,
 					})
 					reject(err)
